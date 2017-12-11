@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ApexVcsIndex">
+    <index-move-record>
+      <option name="firstPath" value="/app_action/__init__.py" />
+      <option name="path" value="/app/__init__.py" />
+    </index-move-record>
+    <index-move-record>
+      <option name="firstPath" value="/app_action/action20000.py" />
+      <option name="path" value="/app/action20000.py" />
+    </index-move-record>
+    <index-move-record>
+      <option name="firstPath" value="/app_action/action_base.py" />
+      <option name="path" value="/app/action_base.py" />
+    </index-move-record>
+  </component>
+</project>
