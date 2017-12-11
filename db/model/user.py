@@ -6,7 +6,8 @@ Module Description:
 @Author  : fengweiqian
 """
 import peewee
-from server import mooc_db
+from server_sync import mooc_db
+from server_async import objects
 
 class BaseModel(peewee.Model):
     """A base model that will use our MySQL database"""

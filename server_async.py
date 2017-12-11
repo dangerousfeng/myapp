@@ -1,9 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+Module Description: 
+@Time    : 2017/12/11 17:02
+@Author  : fengweiqian
+"""
 #  -*- coding: utf-8 -*-
 """
-Created on 2016.1.11
-
-@author: DengShengjin
-@modify: ChenJingYi 2017.5
 """
 import asyncio
 from signal import signal, SIGINT
@@ -12,6 +15,7 @@ import uvloop
 from sanic import Sanic
 from sanic import response
 import peewee
+import peewee_async
 
 # from mooc.tool import server_config
 
@@ -19,8 +23,9 @@ app = Sanic(__name__)
 # app.config.from_object(server_config)
 
 
-mooc_db = peewee.MySQLDatabase('mooc',user="root", password="123456",host='fengweiqian.tech',port=3306)
-mooc_db.connect()
+database = peewee_async.MySQLDatabase('mooc',user="root", password="123456",host='fengweiqian.tech',port=3306)
+objects = peewee_async.Manager(database)
+database.set_allow_sync(False)
 
 def get_IP(request):
     if request.headers.get('X-Forwarded-For'):
@@ -51,4 +56,3 @@ try:
     loop.run_forever()
 except:
     loop.stop()
-    mooc_db.close()
