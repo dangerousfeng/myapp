@@ -1,8 +1,9 @@
-#  -*- coding: utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
-Created on 2016.1.11
-
-@author: DengShengjin
+Module Description:
+@Time    : 2017/12/11 17:02
+@Author  : fengweiqian
 """
 import string
 import time

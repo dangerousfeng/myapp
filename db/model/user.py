@@ -6,13 +6,7 @@ Module Description:
 @Author  : fengweiqian
 """
 import peewee
-# from server_sync import mooc_db
-from server_async import database
-#
-# class SyncBaseModel(peewee.Model):
-#     """A base model that will use our MySQL database"""
-#     class Meta:
-#         database = mooc_db
+from db.mysql_async import database
 
 class AsyncBaseModel(peewee.Model):
     class Meta:

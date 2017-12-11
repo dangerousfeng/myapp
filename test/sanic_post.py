@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time    : 2017/8/22 17:34
-# @Author  : Fengweiqian
-# @File    : sanic_post.py
+"""
+Module Description:
+@Time    : 2017/12/11 17:02
+@Author  : fengweiqian
+"""
 import json
 import random
 import requests

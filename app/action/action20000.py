@@ -7,9 +7,8 @@ Module Description:
 """
 from  app.action.action_base import ActionBase
 from db.model.user import User
-from server_async import objects
+from db.mysql_async import manager
 
-import traceback
 
 class Action20000(ActionBase):
     """
@@ -34,7 +33,7 @@ class Action20000(ActionBase):
     async def do_action(self):
         user_list = []
         # users = User.select()
-        users = await objects.execute(User.select())
+        users = await manager.execute(User.select())
         for u in users:
             item = {"id":u.id,"name":u.name, "nickname":u.nickname,"phone":u.phone, "email":u.email}
             print(item)

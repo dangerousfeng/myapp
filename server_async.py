@@ -5,27 +5,16 @@ Module Description:
 @Time    : 2017/12/11 17:02
 @Author  : fengweiqian
 """
-#  -*- coding: utf-8 -*-
-"""
-"""
 import asyncio
 from signal import signal, SIGINT
 import traceback
 import uvloop
 from sanic import Sanic
 from sanic import response
-import peewee
-import peewee_async
-
 # from mooc.tool import server_config
 
 app = Sanic(__name__)
 # app.config.from_object(server_config)
-
-
-database = peewee_async.MySQLDatabase('mooc',user="root", password="123456",host='fengweiqian.tech',port=3306)
-objects = peewee_async.Manager(database)
-database.set_allow_sync(False)
 
 def get_IP(request):
     if request.headers.get('X-Forwarded-For'):
@@ -33,7 +22,6 @@ def get_IP(request):
     else:
         ip = request.ip if request.ip else ''
     return ip
-
 
 @app.route('/mooc', methods=['POST'])
 async def session(request):
