@@ -42,18 +42,41 @@ class ActionBase(object):
         self.action_id = 0
         # 响应数据
         self.response_data = {}
+        # 响应code
+        self.response_code = 0
         # 响应信息
         self.response_info = ''
 
-    def verify_params(self):
+    def verify_jwt(self):
         """
-        验证参数
+        check jwt
         :return:
         """
+        JWT = self.request_data.get('JWT', None)
+        if not JWT:
+            self.response_code = -1
+            self.response_info = "not jwt received"
+            return False
         return True
 
+    def check_params(self, params=[]):
+        """
+        check参数
+        :return:
+        """
+        params.append('userId')
+        for param in params:
+            value = self.request_data.get(param, None)
+            if not value:
+                self.response_code = -2
+                self.response_info = "params error"
+                return False
+        return True
+
+
     def before_action(self):
-        pass
+
+        return self.check_params()
 
     async def do_action(self):
         """
@@ -70,7 +93,10 @@ class ActionBase(object):
         pass
 
     async def exec_action(self):
-        self.before_action()
+        if not self.verify_jwt():
+            return self.get_response()
+        if not self.before_action():
+            return self.get_response()
         await self.do_action()
         self.after_action()
         return self.get_response()
@@ -79,7 +105,7 @@ class ActionBase(object):
         """取得响应数据
         """
         if "Stat" not in self.response_data:
-            self.add_response('Stat',0 )#self.response_code
+            self.add_response('Stat', self.response_code)
         if "Info" not in self.response_data:
             self.add_response('Info', self.response_info)
         self.add_response('ActionId', self.action_id)

@@ -34,6 +34,8 @@ async def exec_action(ip,request):
         # 获取参数
         params = get_params(request)
         action_id = params.get('ActionId', 0)
+        print("ActionId:", action_id, "  params:", params)
+        print("------------------------------------------")
         # 反射实例化操作
         action_xxx = lazy_import(action_id)
         class_obj = action_xxx(params, ip)  # 类名为class_name的对象

@@ -21,9 +21,9 @@ def post_http():
 
     data = {
             "JWT": "%.24f" % random.random(),
-            "Key": "%.20f" % random.random(),
-            "c_pub": c_pub,
-            "ActionId":20000}
+            "userId": 7,
+            "courseId": 99,
+            "ActionId": 100}
     action_data = json.dumps(data).encode('utf8')
     r = requests.post(session_http_url, data=action_data ,headers=headers[2])
     print (r.json())
