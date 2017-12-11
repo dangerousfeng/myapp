@@ -6,15 +6,20 @@ Module Description:
 @Author  : fengweiqian
 """
 import peewee
-from server_sync import mooc_db
-from server_async import objects
+# from server_sync import mooc_db
+from server_async import database
+#
+# class SyncBaseModel(peewee.Model):
+#     """A base model that will use our MySQL database"""
+#     class Meta:
+#         database = mooc_db
 
-class BaseModel(peewee.Model):
-    """A base model that will use our MySQL database"""
+class AsyncBaseModel(peewee.Model):
     class Meta:
-        database = mooc_db
+        database = database
 
-class User(BaseModel):
+
+class User(AsyncBaseModel):
     id = peewee.IntegerField()
     name = peewee.CharField()
     nickname = peewee.CharField()
