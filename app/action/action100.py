@@ -2,36 +2,52 @@
 # -*- coding: utf-8 -*-
 """
 Module Description: 
-@Time    : 2017/12/8 14:11
+@Time    : 2017/12/12 16：57
 @Author  : fengweiqian
 """
-from  app.action.action_base import ActionBase
+from app.action.action_base import ActionBase
+from app.componet.user_component import get_user_base_info
 from db.model.user import UserBase
-from db.mysql_async import manager
-from tool.time import timestamp2datetime,datetime2str
 
 class Action100(ActionBase):
     """
-    get one user base info
+    register user
     """
 
     def __init__(self, request_data, ip):
         super(Action100, self).__init__(request_data, ip)
         self.action_id = int(self.__class__.__name__.replace('Action', ''))
 
+    def check_params(self, params=[]):
+        """
+        check参数
+        :return:
+        """
+        params = ["email", "phone", ]
+        for param in params:
+            value = self.request_data.get(param, None)
+            if value and self.request_data.get("password"):
+                return True
+        self.response_code = -2
+        self.response_info = "params error"
+        return False
+
     def before_action(self):
-        return self.check_params(params=["courseId"])
+        return self.check_params()
 
     async def do_action(self):
-        user_id = self.request_data.get('userId')
-        u = await manager.get(UserBase, id=user_id)
-        user = {"id": u.id,
-                "name": u.name,
-                "nickname": u.nickname,
-                "phone": u.phone,
-                "email": u.email,
-                "itime": datetime2str(u.itime)}
+        # check phone or email exist
+        email = self.request_data.get('email')
+        phone = self.request_data.get('phone')
+        user = await get_user_base_info(email=email, phone=phone)
+        if user:
+            self.response_code = -100
+            self.response_info = "user exist"
+            return self.get_response()
+        # create user
+        password = self.request_data.get('password')
+
+
+
 
         self.add_response('Data', user)
-
-
