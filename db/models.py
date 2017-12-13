@@ -40,7 +40,7 @@ class UserBase(BaseModel):
     email = peewee.CharField()
     password = peewee.CharField()
     itime = peewee.TimestampField()
-    role = peewee.BooleanField()
+    super_role = peewee.BooleanField()
 
 
 class UserData(BaseModel):

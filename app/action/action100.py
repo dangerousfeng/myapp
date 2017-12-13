@@ -6,7 +6,7 @@ Module Description:
 @Author  : fengweiqian
 """
 from app.action.action_base import ActionBase
-from app.componet.user_component import get_user_base_info
+from app.componet.user_component import get_user_base_info,create_user
 
 
 class Action100(ActionBase):
@@ -46,8 +46,6 @@ class Action100(ActionBase):
             return self.get_response()
         # create user
         password = self.request_data.get('password')
-
-
-
-
+        super_role = self.request_data.get('superRole')
+        await create_user(email=email, phone=phone, password=password, super_role=super_role)
         self.add_response('Data', user)

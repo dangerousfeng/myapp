@@ -7,6 +7,7 @@ Module Description:
 """
 from db.models import UserBase
 from db.mysql_manager import manager
+from tool.util import get_uuid
 
 
 async def get_user_base_info(user_id=None, phone=None, email=None):
@@ -21,8 +22,10 @@ async def get_user_base_info(user_id=None, phone=None, email=None):
     return u
 
 
-async def create_user(email=None, phone=None, password=None):
+async def create_user(email=None, phone=None, password=None, super_role=False):
+    user_id = get_uuid()
+    name = email if email else phone
+    user_base = await manager.create(UserBase, user_id=user_id, name=name, email=email, phone=phone,  password=password, super_role=super_role)
 
-    await manager.create(UserBase, email=email, phone=phone, password=password)
 
-
+# if __name__=="__main__":

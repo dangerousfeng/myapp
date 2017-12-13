@@ -7,6 +7,7 @@ Module Description:
 """
 import datetime
 from tool.times import datetime2str
+import uuid
 
 
 def asDict(obj):
@@ -19,3 +20,10 @@ def asDict(obj):
             value = datetime2str(v)
         res[k] = value
     return res
+
+
+def get_uuid():
+    s_uuid = str(uuid.uuid1())
+    l_uuid = s_uuid.split('-')
+    s_uuid = ''.join(l_uuid)
+    return s_uuid
