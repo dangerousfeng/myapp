@@ -23,11 +23,38 @@ class UserBase(AsyncBaseModel):
     """
     user base info
     """
-    id = peewee.IntegerField()
-    name = peewee.CharField()
-    nickname = peewee.CharField()
+    user_id = peewee.CharField()
+    user_name = peewee.CharField()
     phone = peewee.IntegerField()
     email = peewee.CharField()
     password = peewee.CharField()
     itime = peewee.TimestampField()
 
+
+class UserData(AsyncBaseModel):
+    """
+    user data
+    """
+    user_id = peewee.CharField()
+    nickname = peewee.CharField()
+    money = peewee.IntegerField()
+
+
+class Course(AsyncBaseModel):
+    """
+    course info
+    """
+    course_id = peewee.IntegerField()
+    course_name = peewee.CharField()
+    teacher_id = peewee.CharField()
+    hot = peewee.IntegerField()
+    course_address = peewee.CharField()
+
+
+class Section(AsyncBaseModel):
+    """
+    section info
+    """
+    course_id = peewee.IntegerField()
+    section_id = peewee.IntegerField()
+    sec_name = peewee.CharField()
