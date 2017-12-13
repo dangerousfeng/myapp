@@ -5,9 +5,8 @@ Module Description:
 @Time    : 2017/12/12 16:33
 @Author  : fengweiqian
 """
-from db.mysql_async import manager
-from tool.times import datetime2str
-from db.model.user import UserBase
+from db.models import UserBase
+from db.mysql_manager import manager
 
 
 async def get_user_base_info(user_id=None, phone=None, email=None):

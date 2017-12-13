@@ -7,6 +7,6 @@ Module Description:
 """
 import peewee_async
 
-database = peewee_async.MySQLDatabase('mooc',user="root", password="123456",host='fengweiqian.tech',port=3306)
+database = peewee_async.MySQLDatabase('mooc', user="root", password="123456", host='fengweiqian.tech', port=3306)
 manager = peewee_async.Manager(database)
 database.set_allow_sync(False)

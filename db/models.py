@@ -6,7 +6,7 @@ Module Description:
 @Author  : fengweiqian
 """
 import peewee
-from db.mysql_async import database
+from db.mysql_manager import database
 import datetime
 from tool.times import datetime2str
 

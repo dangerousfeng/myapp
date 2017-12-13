@@ -7,7 +7,7 @@ Module Description:
 """
 from app.action.action_base import ActionBase
 from app.componet.user_component import get_user_base_info
-from db.model.user import UserBase
+
 
 class Action100(ActionBase):
     """
