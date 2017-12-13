@@ -7,54 +7,67 @@ Module Description:
 """
 import peewee
 from db.mysql_async import database
+import datetime
+from tool.times import datetime2str
 
-class AsyncBaseModel(peewee.Model):
+
+class BaseModel(peewee.Model):
     """
     Base Model
     """
-    def get_dict(self):
-        pass
+    def asDict(self):
+        res = {}
+        obj_dict = self.__dict__
+        __data = obj_dict["_data"]
+        for k, v in __data.items():
+            value = v
+            if isinstance(v, datetime.datetime):
+                value = datetime2str(v)
+            res[k]=value
+        return res
 
     class Meta:
         database = database
 
 
-class UserBase(AsyncBaseModel):
+class UserBase(BaseModel):
     """
     user base info
     """
-    user_id = peewee.CharField()
+    user_id = peewee.CharField(primary_key=True)
     user_name = peewee.CharField()
     phone = peewee.IntegerField()
     email = peewee.CharField()
     password = peewee.CharField()
     itime = peewee.TimestampField()
+    role = peewee.BooleanField()
 
 
-class UserData(AsyncBaseModel):
+class UserData(BaseModel):
     """
     user data
     """
-    user_id = peewee.CharField()
+    user_id = peewee.CharField(primary_key=True)
     nickname = peewee.CharField()
     money = peewee.IntegerField()
 
 
-class Course(AsyncBaseModel):
+class Course(BaseModel):
     """
     course info
     """
-    course_id = peewee.IntegerField()
+    course_id = peewee.IntegerField(primary_key=True)
     course_name = peewee.CharField()
     teacher_id = peewee.CharField()
     hot = peewee.IntegerField()
     course_address = peewee.CharField()
 
 
-class Section(AsyncBaseModel):
+class Section(BaseModel):
     """
     section info
     """
-    course_id = peewee.IntegerField()
+    course_id = peewee.IntegerField(primary_key=True)
     section_id = peewee.IntegerField()
     sec_name = peewee.CharField()
+

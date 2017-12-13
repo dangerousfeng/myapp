@@ -23,7 +23,7 @@ class Action101(ActionBase):
 
     async def do_action(self):
         user_id = self.request_data.get('userId')
-        user = await get_user_base_info(user_id=user_id)
-        self.add_response('Data', user)
+        u = await get_user_base_info(user_id=user_id)
+        self.add_response('Data', u.asDict())
 
 

@@ -23,7 +23,7 @@ def post_http():
             "JWT": "%.24f" % random.random(),
             "userId": 7,
             "courseId": 99,
-            "ActionId": 100}
+            "ActionId": 101}
     action_data = json.dumps(data).encode('utf8')
     r = requests.post(session_http_url, data=action_data ,headers=headers[2])
     print (r.json())
