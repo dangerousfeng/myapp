@@ -6,7 +6,6 @@ Module Description:
 @Author  : fengweiqian
 """
 import json
-import random
 import requests
 
 session_http_url = "http://127.0.0.1:5000/mooc"
@@ -17,20 +16,9 @@ headers = [{'content-type': 'application/x-www-form-urlencoded'},
                ]
 
 
-def post_http():
+def post_http(data):
 
-    data = {
-            "JWT": "%.24f" % random.random(),
-            "userId": 7,
-            "courseId": 99,
-            "ActionId": 101}
     action_data = json.dumps(data).encode('utf8')
     r = requests.post(session_http_url, data=action_data ,headers=headers[2])
-    print (r.json())
+    return r.json()
 
-
-
-
-
-if __name__ == '__main__':
-    post_http()

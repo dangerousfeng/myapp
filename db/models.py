@@ -39,7 +39,7 @@ class UserBase(BaseModel):
     phone = peewee.IntegerField()
     email = peewee.CharField()
     password = peewee.CharField()
-    itime = peewee.TimestampField()
+    itime = peewee.DateTimeField()
     super_role = peewee.BooleanField()
 
 

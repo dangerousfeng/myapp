@@ -47,5 +47,5 @@ class Action100(ActionBase):
         # create user
         password = self.request_data.get('password')
         super_role = self.request_data.get('superRole')
-        await create_user(email=email, phone=phone, password=password, super_role=super_role)
-        self.add_response('Data', user)
+        user_base, user_data = await create_user(email=email, phone=phone, password=password, super_role=super_role)
+        self.add_response('Data', {"userBase": user_base.asDict(), "userData": user_data.asDict()})
