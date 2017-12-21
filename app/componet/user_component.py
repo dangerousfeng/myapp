@@ -25,11 +25,20 @@ async def get_user_base_info(user_id=None, phone=None, email=None):
     return u
 
 
+async def get_user_data_by_user_id(user_id):
+    try:
+        user_data = await manager.get(UserData, user_id=str(user_id))
+    except UserData.DoesNotExist:
+        user_data = None
+    return user_data
+
+
 async def create_user(email=None, phone=None, password=None, super_role=False):
     user_id = get_uuid()
     nickname = email if email else phone
     user_base = await manager.create(UserBase, user_id=user_id, email=email, phone=phone,  password=password, super_role=super_role)
     user_data = await manager.create(UserData, user_id=user_id, nickname=nickname,money=100000)
+    # todo new user init
     return user_base, user_data
 
 # if __name__=="__main__":

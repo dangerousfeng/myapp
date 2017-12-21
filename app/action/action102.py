@@ -6,12 +6,12 @@ Module Description:
 @Author  : fengweiqian
 """
 from app.action.action_base import ActionBase
-from app.componet.user_component import get_user_base_info
+from app.componet.user_component import get_user_base_info,get_user_data_by_user_id
 
 
 class Action102(ActionBase):
     """
-    change user info
+    change user base info
     """
 
     def __init__(self, request_data, ip):
@@ -19,9 +19,17 @@ class Action102(ActionBase):
         self.action_id = int(self.__class__.__name__.replace('Action', ''))
 
     def before_action(self):
-        return self.check_params(params=["courseId"])
+        return self.check_params(params=["userName", "phone", "email", "password", "nickName"])
 
     async def do_action(self):
         user_id = self.request_data.get('userId')
-        user = await get_user_base_info(user_id=user_id)
-        self.add_response('Data', user)
+
+        user_base = await get_user_base_info(user_id=user_id)
+        user_base.user_name = self.request_data.get('userName')
+        user_base.phone = self.request_data.get('phone')
+        user_base.email = self.request_data.get('password')
+        user_base.save()
+
+        user_data = await get_user_data_by_user_id(user_id)
+        user_data.nickname = self.request_data.get('nickName')
+        user_data.save()
