@@ -61,6 +61,8 @@ class Course(BaseModel):
     teacher_id = peewee.CharField()
     hot = peewee.IntegerField()
     course_address = peewee.CharField()
+    create_time = peewee.DateTimeField()
+    type = peewee.IntegerField()
 
 
 class Section(BaseModel):
@@ -71,3 +73,5 @@ class Section(BaseModel):
     section_id = peewee.IntegerField()
     sec_name = peewee.CharField()
 
+    class Meta:
+        primary_key = peewee.CompositeKey('course_id', 'section_id')
