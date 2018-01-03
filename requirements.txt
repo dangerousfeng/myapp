@@ -3,3 +3,5 @@ peewee
 peewee_async
 aiomysql
 uvloop
+aliyun-python-sdk-sts
+oss2

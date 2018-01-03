@@ -6,7 +6,6 @@ Module Description:
 @Author  : fengweiqian
 """
 from app.action.action_base import ActionBase
-from config import OOS_PATH
 
 
 class Action200(ActionBase):
@@ -26,3 +25,5 @@ class Action200(ActionBase):
         course_name = self.request_data.get('courseName')
         type = self.request_data.get('type')
         # course_address = OOS_PATH.join(["/",course_id])
+        # 地址处理
+        # oos权限处理

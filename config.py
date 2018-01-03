@@ -6,7 +6,16 @@ Module Description
 @Author: fengweiqian
 """
 
+# ---------------OSS-------------------
+OSS_ENDPOINT = "oss-cn-beijing.aliyuncs.com"
+OSS_BUCKET_NAME = "mooc-feng"
+OSS_ACCESS_KEY_ID = "LTAIdCYLSKnUsb37"
+OSS_ACCESS_KEY_SECRET = "65TpH3XXEdJSdHJuruQyZoaplqeK4q"
+OSS_REGION_ID = "cn-beijing"
+WRITE_ONLY_ROLE_ARN = "acs:ram::1363311981980278:role/moocfengappwrite"
+READ_ONLY_ROLE_ARN = "acs:ram::1363311981980278:role/moocfengappreadonly"
 
-OOS_SERVER = "oos.fengweiqian.tech"
-OOS_PATH = "/mooc"
+
+# ---------------MySQL-----------------
 MySQL_SERVER = "fengweiqian.tech"
+
