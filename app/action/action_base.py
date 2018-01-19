@@ -5,16 +5,12 @@ Module Description:
 @Time    : 2017/12/11 17:02
 @Author  : fengweiqian
 """
-import string
-import time
-
 
 
 IMPORT_ACTION ={}
 
 def lazy_import(action_id):
     """
-    write by Zhong Xianghua
     :param actionid:
     :return:
     """
@@ -24,7 +20,6 @@ def lazy_import(action_id):
         return IMPORT_ACTION.get(key)
     module_name = 'app.action.action%s' % action_ids
     class_name = 'Action%s' % action_ids
-
     mod = __import__(module_name, None, None, [class_name])
     actcls = getattr(mod, class_name)
     IMPORT_ACTION[key] = actcls

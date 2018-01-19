@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-4.3.0.min.js"></script>
+  <input type="button" id="download" value="Download" />
+  <script type="text/javascript">
+    document.getElementById('download').addEventListener('click', function (e) {
+      var objectKey = 'test/download_file';
+      var saveAs = 'download_file';
+      console.log(objectKey + ' => ' + saveAs);
+      OSS.urllib.request("http://your_sts_server/",
+                      {method: 'GET'},
+                      function (err, response) {
+          if (err) {
+            return alert(err);
+          }
+          try {
+            result = JSON.parse(response);
+          } catch (e) {
+            return alert('parse sts response info error: ' + e.message);
+          }
+          var client = new OSS.Wrapper({
+            accessKeyId: result.AccessKeyId,
+            accessKeySecret: result.AccessKeySecret,
+            stsToken: result.SecurityToken,
+            endpoint: '<oss endpoint>',
+            bucket: '<Your bucket name>'
+          });
+          var result = client.signatureUrl(objectKey, {
+            expires: 3600,
+            response: {
+              'content-disposition': 'attachment; filename="' + saveAs + '"'
+            }
+          });
+          console.log(result);
+          window.location = result;
+        });
+    });
+  </script>
+</body>
+</html>
+
