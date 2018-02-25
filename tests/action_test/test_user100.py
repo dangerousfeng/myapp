@@ -10,7 +10,7 @@ from tests.action_test.sanic_post import post_http
 
 data_100 = {
         "JWT": "%.24f" % random.random(),
-        "email": "1102hfg4@qq.com",
+        "email": "1103@qq.com",
         "password": "123456",
         "superRole": True,
         "ActionId": 100}

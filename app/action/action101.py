@@ -37,12 +37,16 @@ class Action101(ActionBase):
 
     async def do_action(self):
         # check phone or email exist
-        email = self.request_data.get('email')
-        phone = self.request_data.get('phone')
+        email = self.request_data.get('email',None)
+        phone = self.request_data.get('phone',None)
         user_base = await get_user_base_info(email=email, phone=phone)
         if not user_base:
             self.response_code = -100
             self.response_info = "account not exist"
+            return self.get_response()
+        if user_base.password != self.request_data.get("password"):
+            self.response_code = -100
+            self.response_info = "password error"
             return self.get_response()
         user_data = await get_user_data_by_user_id(user_base.user_id)
 

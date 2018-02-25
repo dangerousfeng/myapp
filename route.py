@@ -44,5 +44,7 @@ async def exec_action(ip,request):
     except Exception as e:
         traceback.print_exc()
         result = "exec_action exception"
-    res = json.dumps(result).encode('utf8')
+    # res = json.dumps(result)
+    from sanic.response import json
+    res = json(result)
     return res

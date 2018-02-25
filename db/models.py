@@ -69,7 +69,7 @@ class Section(BaseModel):
     """
     section info
     """
-    course_id = peewee.IntegerField(primary_key=True)
+    course_id = peewee.IntegerField()
     section_id = peewee.IntegerField()
     sec_name = peewee.CharField()
 
