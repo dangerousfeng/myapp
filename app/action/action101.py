@@ -6,7 +6,7 @@ Module Description:
 @Author  : fengweiqian
 """
 from app.action.action_base import ActionBase
-from app.componet.user_component import get_user_base_info,get_user_data_by_user_id
+from app.componet.user_component import get_user_base_info, get_user_data_by_user_id, get_login_data
 
 
 class Action101(ActionBase):
@@ -51,5 +51,6 @@ class Action101(ActionBase):
         user_data = await get_user_data_by_user_id(user_base.user_id)
 
         # todo get login data, init data
-
-        self.add_response('Data', {"userBase": user_base.asDict(), "userData": user_data.asDict()})
+        rtn_data = {"userBase": user_base.asDict(), "userData": user_data.asDict()}
+        rtn_data.update(get_login_data(user_base,user_data))
+        self.add_response('Data', rtn_data)

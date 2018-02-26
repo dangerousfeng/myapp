@@ -35,7 +35,7 @@ def get_sts_token(role_arn):
     body = clt.do_action_with_exception(req)
     # 为了简化讨论，没有做出错检查
     token = json.loads(body)
-    return token
+    return token['Credentials']
 
 
 def get_readonly_sts_token():

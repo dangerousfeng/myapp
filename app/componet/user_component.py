@@ -7,7 +7,15 @@ Module Description:
 """
 from db.models import UserBase, UserData
 from db.mysql_manager import manager
+from tool.oss_sts import get_writeonly_sts_token, get_readonly_sts_token
 from tool.util import get_uuid
+
+
+async def get_login_data(user_base,user_data):
+    rtn_data = {"stsReadOnly":get_readonly_sts_token()}
+    if user_base.super_role == True:
+        rtn_data["stsWriteOnly"] = get_writeonly_sts_token()
+    return rtn_data
 
 
 async def get_user_base_info(user_id=None, phone=None, email=None):
