@@ -52,5 +52,5 @@ class Action101(ActionBase):
 
         # todo get login data, init data
         rtn_data = {"userBase": user_base.asDict(), "userData": user_data.asDict()}
-        rtn_data.update(get_login_data(user_base,user_data))
+        rtn_data.update(await get_login_data(user_base,user_data))
         self.add_response('Data', rtn_data)

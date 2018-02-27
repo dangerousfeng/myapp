@@ -12,9 +12,14 @@ from tool.util import get_uuid
 
 
 async def get_login_data(user_base,user_data):
-    rtn_data = {"stsReadOnly":get_readonly_sts_token()}
+
+    rtn_data = {}
+
+    rtn_data["stsReadOnly"] = await get_readonly_sts_token()
     if user_base.super_role == True:
-        rtn_data["stsWriteOnly"] = get_writeonly_sts_token()
+        rtn_data["stsWriteOnly"] = await get_writeonly_sts_token()
+
+    rtn_data["JWT"] = "THIS IS A JWT."
     return rtn_data
 
 

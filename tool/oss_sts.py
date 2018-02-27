@@ -13,7 +13,7 @@ from itertools import islice
 from config import *
 
 
-def get_sts_token(role_arn):
+async def get_sts_token(role_arn):
     """
     通过role_arn获取token
     :param role_arn:
@@ -34,21 +34,21 @@ def get_sts_token(role_arn):
     req.set_DurationSeconds(1800)  # 半小时过期时间
     body = clt.do_action_with_exception(req)
     # 为了简化讨论，没有做出错检查
-    token = json.loads(body)
+    token = json.loads(body.decode('utf-8'))
     return token['Credentials']
 
 
-def get_readonly_sts_token():
+async def get_readonly_sts_token():
     """
     获取只读权限
     :return:
     """
-    return get_sts_token(READ_ONLY_ROLE_ARN)
+    return await get_sts_token(READ_ONLY_ROLE_ARN)
 
 
-def get_writeonly_sts_token():
+async def get_writeonly_sts_token():
     """
     获取只写权限
     :return:
     """
-    return get_sts_token(WRITE_ONLY_ROLE_ARN)
+    return await get_sts_token(WRITE_ONLY_ROLE_ARN)

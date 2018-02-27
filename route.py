@@ -46,5 +46,6 @@ async def exec_action(ip,request):
         result = "exec_action exception"
     # res = json.dumps(result)
     from sanic.response import json
+    print(result)
     res = json(result)
     return res

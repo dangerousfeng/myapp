@@ -50,5 +50,5 @@ class Action100(ActionBase):
         user_base, user_data = await create_user(email=email, phone=phone, password=password, super_role=super_role)
 
         rtn_data = {"userBase": user_base.asDict(), "userData": user_data.asDict()}
-        rtn_data.update(get_login_data(user_base, user_data))
+        rtn_data.update(await get_login_data(user_base, user_data))
         self.add_response('Data', rtn_data)
