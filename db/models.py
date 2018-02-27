@@ -9,6 +9,7 @@ import peewee
 from db.mysql_manager import database
 import datetime
 from tool.times import datetime2str
+from tool.util import field_to_hump
 
 
 class BaseModel(peewee.Model):
@@ -23,7 +24,7 @@ class BaseModel(peewee.Model):
             value = v
             if isinstance(v, datetime.datetime):
                 value = datetime2str(v)
-            res[k]=value
+            res[field_to_hump(k)]=value
         return res
 
     class Meta:
