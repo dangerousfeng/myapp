@@ -20,12 +20,12 @@ class Action200(ActionBase):
         self.action_id = int(self.__class__.__name__.replace('Action', ''))
 
     def before_action(self):
-        return self.check_params(params=["courseName", "type"])
+        return self.check_params(params=["courseName", "type", "courseDesc"])
 
     async def do_action(self):
         teacher_id = self.request_data.get('userId')
         course_name = self.request_data.get('courseName')
-        course_desc = self.request_data.get('courseDesc',None)
+        course_desc = self.request_data.get('courseDesc')
         type = self.request_data.get('type')
         user_base = await get_user_base_info(user_id=teacher_id)
         if user_base.super_role != True:
