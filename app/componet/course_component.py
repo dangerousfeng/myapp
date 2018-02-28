@@ -37,3 +37,20 @@ async def create_section(course_id, sec_name, sec_desc=None):
                                    sec_desc=sec_desc)
 
     return section.section_id
+
+
+async def get_created_courses(user_id):
+
+    course_list = []
+    sq = Course.select().where(teacher_id=user_id)
+    courses = await sq.excute()
+    for c in courses:
+        course_list.append(c.asDict())
+    return course_list
+
+
+async def get_sections_by_course(course_id):
+
+    sq = Section.select().where(course_id=course_id)
+    secs = await sq.excute()
+    return [sec.asDict for sec in secs]

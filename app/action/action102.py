@@ -27,9 +27,12 @@ class Action102(ActionBase):
         user_base = await get_user_base_info(user_id=user_id)
         user_base.user_name = self.request_data.get('userName')
         user_base.phone = self.request_data.get('phone')
-        user_base.email = self.request_data.get('password')
+        user_base.email = self.request_data.get
+        user_base.password = self.request_data.get('password')
         user_base.save()
 
-        user_data = await get_user_data_by_user_id(user_id)
-        user_data.nickname = self.request_data.get('nickName')
-        user_data.save()
+        nickname = self.request_data.get('nickName',None)
+        if nickname:
+            user_data = await get_user_data_by_user_id(user_id)
+            user_data.nickname = nickname
+            user_data.save()

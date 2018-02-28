@@ -33,5 +33,4 @@ class Action200(ActionBase):
             self.response_info = "account Lack of authority"
             return self.get_response()
         course_id = create_course(course_name,teacher_id,type,course_desc)
-        # oos权限处理
         self.add_response('Data', {"courseId": course_id})

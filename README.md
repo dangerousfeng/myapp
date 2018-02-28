@@ -10,6 +10,9 @@
 
 201 create section
 
+202 我创建的课程
+
+203 课程的所有小节
 
 #### error code ####
 
@@ -17,6 +20,6 @@
 |---|---:|---:|
 |-1|jwt error|-|
 |-2|params error|-|
-|-100|account error||
-|-101|account Lack of authority||
+|-100|account error|-|
+|-101|account Lack of authority|-|
 
