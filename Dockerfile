@@ -1,6 +1,6 @@
 FROM python36
 
-ENV APP_ROOT /home/code
+ENV APP_ROOT /home
 WORKDIR ${APP_ROOT}/
 COPY requirements.txt ${APP_ROOT}/
 RUN pip install --no-cache-dir -r requirements.txt
