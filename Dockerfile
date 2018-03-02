@@ -8,4 +8,4 @@ COPY . ${APP_ROOT}
 
 EXPOSE 5000
 
-CMD ["python36", "server_async.py"]
+CMD ["python3", "server_async.py"]
