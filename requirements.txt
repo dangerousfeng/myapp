@@ -6,3 +6,4 @@ uvloop
 aliyun-python-sdk-sts
 oss2
 shortuuid
+PyMySQL
