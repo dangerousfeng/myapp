@@ -35,14 +35,17 @@ async def exec_action(ip,request):
         params = get_params(request)
         action_id = params.get('ActionId', 0)
         print("ActionId:", action_id, "  params:", params)
-        print("------------------------------------------")
         # 反射实例化操作
         action_xxx = lazy_import(action_id)
+        print("---------import--2-------------------------------")
         class_obj = action_xxx(params, ip)  # 类名为class_name的对象
+        print("-----------do_action--3-----------------------------")
         result = await class_obj.exec_action()  # 执行对象的exec_action方法d
+
 
     except Exception as e:
         traceback.print_exc()
+        print("--------------------e---4-------------------",e)
         result = "exec_action exception"
     # res = json.dumps(result)
     from sanic.response import json
