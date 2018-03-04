@@ -32,5 +32,5 @@ class Action200(ActionBase):
             self.response_code = -101
             self.response_info = "account Lack of authority"
             return self.get_response()
-        course_id = create_course(course_name,teacher_id,type,course_desc)
+        course_id = await create_course(course_name,teacher_id,type,course_desc)
         self.add_response('Data', {"courseId": course_id})
