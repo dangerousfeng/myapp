@@ -14,6 +14,8 @@
 
 203 课程的所有小节
 
+204 课程详情页
+
 #### error code ####
 
 |code|describe|example|

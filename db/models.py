@@ -74,7 +74,7 @@ class Section(BaseModel):
     course_id = peewee.CharField()
     section_id = peewee.IntegerField()
     sec_name = peewee.CharField()
-    sec_desc = peewee.CharField()
+    section_desc = peewee.CharField()
 
     class Meta:
         primary_key = peewee.CompositeKey('course_id', 'section_id')
