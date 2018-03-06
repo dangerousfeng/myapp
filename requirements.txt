@@ -1,7 +1,7 @@
 sanic==0.7.0
 peewee_async==0.5.11
 aiomysql==0.0.12
-uvloop==0.9.1
+uvloop==0.8.1
 aliyun-python-sdk-sts==3.0.0
 oss2==2.4.0
 shortuuid==0.5.0
