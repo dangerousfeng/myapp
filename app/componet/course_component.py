@@ -6,7 +6,7 @@ Module Description:
 @Author  : fengweiqian
 """
 
-from db.models import Course, Section
+from db.models import Course, Section, UserBase
 from db.mysql_manager import manager
 from tool.util import get_uuid
 
@@ -52,7 +52,12 @@ async def get_created_courses(user_id):
 async def get_course_detail(course_id):
 
     course = await manager.get(Course, course_id=course_id)
-    return course.asDict()
+    teacher_id = course.teacher_id
+    teacher = await manager.get(UserBase,user_id=teacher_id)
+    teacher_name = teacher.user_name
+    rtn_data = course.asDict()
+    rtn_data["teacherName"] = teacher_name
+    return rtn_data
 
 
 async def get_sections_by_course(course_id):
