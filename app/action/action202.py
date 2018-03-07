@@ -7,7 +7,7 @@ Module Description:
 """
 from app.action.action_base import ActionBase
 from app.componet.course_component import get_created_courses
-from app.componet.user_component import get_user_base_info
+from app.componet.user_component import get_user_base_info, get_user_data_by_user_id
 
 
 class Action202(ActionBase):
@@ -30,5 +30,9 @@ class Action202(ActionBase):
             self.response_code = -101
             self.response_info = "account not teacher"
             return self.get_response()
+        user_data = await get_user_data_by_user_id(user_id)
         rtn_data["createdCourses"] = await get_created_courses(user_id)
+        teacher_info = {"userName":user_base.user_name,"nickname":user_data.nickname,"email":user_base.email}
+        rtn_data["teacherInfo"] = teacher_info
+
         self.add_response('Data', rtn_data)
