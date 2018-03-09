@@ -27,8 +27,11 @@ async def create_course(course_name, teacher_id, type, course_desc=None):
 async def create_section(course_id, sec_name, sec_desc=None):
 
     sq = Section.select().where(Section.course_id==course_id)
-    sections = manager.execute(sq)
-    section_id = max([Section.section_id for Section.section_id in sections]) + 1
+    sections = await manager.execute(sq)
+    if sections:
+        section_id = max([sec.section_id for sec in sections]) + 1
+    else:
+        section_id = 1
     # max_id = Section.select().aggregate(max('section_id')).where(course_id=course_id)
     section = await manager.create(Section,
                                    course_id=course_id,
@@ -64,4 +67,4 @@ async def get_sections_by_course(course_id):
 
     sq = Section.select().where(Section.course_id==course_id)
     secs = await manager.execute(sq)
-    return [sec.asDict for sec in secs]
+    return [sec.asDict() for sec in secs]

@@ -17,8 +17,8 @@ READ_ONLY_ROLE_ARN = "acs:ram::1363311981980278:role/moocfengappreadonly"
 
 
 # ---------------MySQL-----------------
-# HOST = "fengweiqian.tech"
-HOST = "172.18.0.1"
+HOST = "fengweiqian.tech"
+#HOST = "172.18.0.1"
 DB = "mooc"
 USER = "root"
 PASSWORD = "123456"

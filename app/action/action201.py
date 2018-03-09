@@ -6,12 +6,7 @@ Module Description:
 @Author  : fengweiqian
 """
 from app.action.action_base import ActionBase
-from db.model.user import UserBase
-from db.mysql_async import manager
-from tool.time import timestamp2datetime, datetime2str
-
 from app.componet.course_component import create_section
-from tool.oss_sts import get_writeonly_sts_token
 
 
 class Action201(ActionBase):
@@ -30,6 +25,6 @@ class Action201(ActionBase):
         course_id = self.request_data.get('courseId')
         sec_name = self.request_data.get('secName')
         sec_desc = self.request_data.get('secDesc',None)
-        sec_id = create_section(course_id,sec_name,sec_desc)
+        sec_id = await create_section(course_id,sec_name,sec_desc)
         self.add_response('Data', {'secId':sec_id})
 
