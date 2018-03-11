@@ -16,6 +16,8 @@
 
 204 课程详情页
 
+205 comment course
+
 #### error code ####
 
 |code|describe|example|

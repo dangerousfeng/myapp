@@ -5,6 +5,7 @@ Module Description:
 @Time    : 2/26/18 4:44 AM
 @Author  : fengweiqian
 """
+from peewee import fn
 
 from db.models import Course, Section, UserBase
 from db.mysql_manager import manager
@@ -68,3 +69,21 @@ async def get_sections_by_course(course_id):
     sq = Section.select().where(Section.course_id==course_id)
     secs = await manager.execute(sq)
     return [sec.asDict() for sec in secs]
+
+
+async def get_top20_hot_courses():
+    course_list = []
+    sq = Course.select().order_by(Course.hot.desc()).limit(20)
+    courses = await manager.execute(sq)
+    for c in courses:
+        course_list.append(c.asDict())
+    return course_list
+
+
+async  def get_recommend_4_courses():
+    course_list = []
+    sq = Course.select().order_by(fn.Rand()).limit(20)
+    courses = await manager.execute(sq)
+    for c in courses:
+        course_list.append(c.asDict())
+    return course_list

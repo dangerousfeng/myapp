@@ -5,6 +5,7 @@ Module Description:
 @Time    : 2017/12/12 16:33
 @Author  : fengweiqian
 """
+from app.componet.course_component import get_top20_hot_courses, get_recommend_4_courses
 from db.models import UserBase, UserData
 from db.mysql_manager import manager
 from tool.oss_sts import get_writeonly_sts_token, get_readonly_sts_token
@@ -20,6 +21,8 @@ async def get_login_data(user_base,user_data):
         rtn_data["stsWriteOnly"] = await get_writeonly_sts_token()
 
     rtn_data["JWT"] = "THIS IS A JWT."
+    rtn_data["hotCourses"] = await get_top20_hot_courses()
+    rtn_data["recommendCourses"] = await get_recommend_4_courses()
     return rtn_data
 
 
