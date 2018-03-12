@@ -10,10 +10,12 @@ from db.model.user import UserBase
 from db.mysql_async import manager
 from tool.time import timestamp2datetime, datetime2str
 
+from app.componet.course_component import insert_one_comment
+
 
 class Action205(ActionBase):
     """
-    comment course
+    insert comment course
     """
 
     def __init__(self, request_data, ip):
@@ -21,10 +23,13 @@ class Action205(ActionBase):
         self.action_id = int(self.__class__.__name__.replace('Action', ''))
 
     def before_action(self):
-        return self.check_params(params=["courseId"])
+        return self.check_params(params=["courseId","content"])
 
     async def do_action(self):
         user_id = self.request_data.get('userId')
-        u = await manager.get(UserBase, id=user_id)
-        self.add_response('Data', user)
+        course_id = self.request_data.get('courseId')
+        content = self.request_data.get('content')
+
+        comment = await insert_one_comment(course_id=course_id,user_id=user_id,content=content)
+        return {"comment": comment}
 

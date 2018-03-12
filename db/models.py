@@ -78,3 +78,15 @@ class Section(BaseModel):
 
     class Meta:
         primary_key = peewee.CompositeKey('course_id', 'section_id')
+
+
+class Comment(BaseModel):
+    """
+    comment model
+    """
+    comment_id = peewee.IntegerField(primary_key=True)
+    course_id = peewee.CharField()
+    user_id = peewee.CharField()
+    content = peewee.CharField()
+    comment_time = peewee.DateTimeField()
+    zan_num = peewee.IntegerField()

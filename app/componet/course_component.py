@@ -7,7 +7,7 @@ Module Description:
 """
 from peewee import fn
 
-from db.models import Course, Section, UserBase
+from db.models import Course, Section, UserBase, Comment
 from db.mysql_manager import manager
 from tool.util import get_uuid
 
@@ -80,10 +80,21 @@ async def get_top20_hot_courses():
     return course_list
 
 
-async  def get_recommend_4_courses():
+async def get_recommend_4_courses():
     course_list = []
     sq = Course.select().order_by(fn.Rand()).limit(20)
     courses = await manager.execute(sq)
     for c in courses:
         course_list.append(c.asDict())
     return course_list
+
+
+async def insert_one_comment(course_id,user_id,content):
+    comment = await manager.create(Comment, course_id=course_id, user_id=user_id, content=content)
+    return comment
+
+
+async def pull_course_comments(course_id):
+    sq = Comment.select().where(Comment.course_id==course_id)
+    comments = await manager.execute(sq)
+    return comments

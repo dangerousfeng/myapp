@@ -57,4 +57,13 @@ async def create_user(email=None, phone=None, password=None, super_role=False):
     # todo new user init
     return user_base, user_data
 
+
+async def get_user_name(user_id):
+    user_data = await get_user_data_by_user_id(user_id=user_id)
+    u_name = user_data.nickname
+    if not u_name:
+        user_base = await get_user_base_info(user_id=user_id)
+        u_name = user_base.email if user_base.email else user_base.phone
+    return u_name
+
 # if __name__=="__main__":
