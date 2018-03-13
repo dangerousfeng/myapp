@@ -6,10 +6,6 @@ Module Description:
 @Author  : fengweiqian
 """
 from app.action.action_base import ActionBase
-from db.model.user import UserBase
-from db.mysql_async import manager
-from tool.time import timestamp2datetime, datetime2str
-
 from app.componet.course_component import insert_one_comment
 
 
