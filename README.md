@@ -18,6 +18,12 @@
 
 205 comment course
 
+206 收藏课程
+
+207 点赞评论
+
+208 获取分类课程
+
 #### error code ####
 
 |code|describe|example|

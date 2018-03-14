@@ -7,7 +7,7 @@ Module Description:
 """
 from peewee import fn
 
-from db.models import Course, Section, UserBase, Comment
+from db.models import Course, Section, UserBase, Comment, Collection, PlayRecord
 from db.mysql_manager import manager
 from tool.util import get_uuid
 
@@ -89,12 +89,49 @@ async def get_recommend_4_courses():
     return course_list
 
 
+async def get_courses_by_type(c_type):
+    course_list = []
+    sq = Course.select().where(Course.type==c_type)
+    courses = await manager.execute(sq)
+    for c in courses:
+        course_list.append(c.asDict())
+    return course_list
+
+
 async def insert_one_comment(course_id,user_id,content):
     comment = await manager.create(Comment, course_id=course_id, user_id=user_id, content=content)
     return comment
+
+
+async def zan_add(comment_id):
+    comment = await manager.get(Comment,comment_id=comment_id)
+    comment.zan_num += 1
+    await comment.save()
 
 
 async def pull_course_comments(course_id):
     sq = Comment.select().where(Comment.course_id==course_id)
     comments = await manager.execute(sq)
     return comments
+
+
+async def insert_one_collection(course_id,user_id):
+    collection = await manager.get_or_create(Collection,user_id=user_id,course_id=course_id)
+    return collection
+
+
+async def pull_collections_by_user(user_id):
+    sq = Collection.select().where(Collection.user_id==user_id)
+    collections = await manager.execute(sq)
+    return collections
+
+
+async def insert_one_play_record(user_id,course_id):
+    play_record = await manager.get_or_create(PlayRecord,user_id=user_id,course_id=course_id)
+    return play_record
+
+
+async def pull_play_records_by_user(user_id):
+    sq = PlayRecord.select().where(PlayRecord.user_id==user_id)
+    records = await manager.execute(sq)
+    return records

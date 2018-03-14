@@ -6,7 +6,8 @@ Module Description:
 @Author  : fengweiqian
 """
 from app.action.action_base import ActionBase
-from app.componet.course_component import get_sections_by_course, get_course_detail, pull_course_comments
+from app.componet.course_component import get_sections_by_course, get_course_detail, pull_course_comments, \
+    insert_one_play_record
 from app.componet.user_component import get_user_data_by_user_id, get_user_base_info, get_user_name
 
 
@@ -26,6 +27,8 @@ class Action204(ActionBase):
         rtn_data = {}
         user_id = self.request_data.get('userId')
         course_id = self.request_data.get('courseId')
+
+        await insert_one_play_record(user_id=user_id,course_id=course_id)  # 播放记录
         rtn_data["course"] = await get_course_detail(course_id)
         rtn_data["sections"] = await get_sections_by_course(course_id=course_id)
 

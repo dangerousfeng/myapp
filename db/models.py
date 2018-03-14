@@ -90,3 +90,22 @@ class Comment(BaseModel):
     content = peewee.CharField()
     comment_time = peewee.DateTimeField()
     zan_num = peewee.IntegerField()
+
+
+class Collection(BaseModel):
+    """
+    collection course
+    """
+    collection_id = peewee.IntegerField(primary_key=True)
+    user_id = peewee.CharField()
+    course_id = peewee.CharField()
+
+
+class PlayRecord(BaseModel):
+    """
+    history play record
+    """
+    record_id = peewee.IntegerField(primary_key=True)
+    user_id = peewee.CharField()
+    course_id = peewee.CharField()
+    play_time = peewee.DateTimeField()

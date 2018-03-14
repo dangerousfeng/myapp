@@ -27,5 +27,6 @@ class Action205(ActionBase):
         content = self.request_data.get('content')
 
         comment = await insert_one_comment(course_id=course_id,user_id=user_id,content=content)
-        return {"comment": comment}
+        self.add_response('Data', {"comment": comment})
+
 
