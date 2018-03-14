@@ -82,7 +82,7 @@ async def get_top20_hot_courses():
 
 async def get_recommend_4_courses():
     course_list = []
-    sq = Course.select().order_by(fn.Rand()).limit(20)
+    sq = Course.select().order_by(fn.Rand()).limit(4)
     courses = await manager.execute(sq)
     for c in courses:
         course_list.append(c.asDict())
