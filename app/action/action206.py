@@ -11,7 +11,7 @@ from app.componet.course_component import insert_one_collection
 
 class Action206(ActionBase):
     """
-    collection course
+    insert collection course
     """
 
     def __init__(self, request_data, ip):
@@ -25,4 +25,4 @@ class Action206(ActionBase):
         user_id = self.request_data.get('userId')
         course_id = self.request_data.get('courseId')
         collection = await insert_one_collection(user_id=user_id,course_id=course_id)
-        self.add_response('Data', collection.asDict())
+        self.add_response('Data', {"collection":collection.asDict()})

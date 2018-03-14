@@ -24,8 +24,6 @@ async def get_login_data(user_base,user_data):
     rtn_data["JWT"] = "THIS IS A JWT."
     rtn_data["hotCourses"] = await get_top20_hot_courses()
     rtn_data["recommendCourses"] = await get_recommend_4_courses()
-    rtn_data["collectionCourses"] = await pull_collections_by_user(user_id=user_base.user_id)
-    rtn_data["playRecords"] = await pull_play_records_by_user(user_id=user_base.user_id)
     return rtn_data
 
 

@@ -24,6 +24,11 @@
 
 208 获取分类课程
 
+209 get collection course
+
+210 pull play record
+
+
 #### error code ####
 
 |code|describe|example|

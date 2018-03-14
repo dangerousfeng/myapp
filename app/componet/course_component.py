@@ -6,7 +6,7 @@ Module Description:
 @Author  : fengweiqian
 """
 from peewee import fn
-
+from tool.times import datetime2str
 from db.models import Course, Section, UserBase, Comment, Collection, PlayRecord
 from db.mysql_manager import manager
 from tool.util import get_uuid
@@ -105,7 +105,7 @@ async def insert_one_comment(course_id,user_id,content):
 
 async def zan_add(comment_id):
     comment = await manager.get(Comment,comment_id=comment_id)
-    comment.zan_num += 1
+    comment.zan_num = comment.zan_num + 1
     await comment.save()
 
 
@@ -116,22 +116,32 @@ async def pull_course_comments(course_id):
 
 
 async def insert_one_collection(course_id,user_id):
-    collection = await manager.get_or_create(Collection,user_id=user_id,course_id=course_id)
+    collection, new = await manager.get_or_create(Collection,user_id=user_id,course_id=course_id)
     return collection
 
 
 async def pull_collections_by_user(user_id):
+    course_list = []
     sq = Collection.select().where(Collection.user_id==user_id)
     collections = await manager.execute(sq)
-    return collections
+    for coll in collections:
+        course = await manager.get(Course, course_id=coll.course_id)
+        course_list.append(course.asDict())
+    return course_list
 
 
 async def insert_one_play_record(user_id,course_id):
-    play_record = await manager.get_or_create(PlayRecord,user_id=user_id,course_id=course_id)
+    play_record, new = await manager.get_or_create(PlayRecord,user_id=user_id,course_id=course_id)
     return play_record
 
 
 async def pull_play_records_by_user(user_id):
-    sq = PlayRecord.select().where(PlayRecord.user_id==user_id)
+    record_list = []
+    sq = PlayRecord.select().where(PlayRecord.user_id==user_id).order_by(-PlayRecord.record_id)
     records = await manager.execute(sq)
-    return records
+    for r in records:
+        course = await manager.get(Course, course_id=r.course_id)
+        item = course.asDict()
+        item["playTime"] = datetime2str(r.play_time)
+        record_list.append(item)
+    return record_list
