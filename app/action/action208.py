@@ -25,4 +25,4 @@ class Action208(ActionBase):
         user_id = self.request_data.get('userId')
         c_type = self.request_data.get('type')
         courses = await get_courses_by_type(c_type=c_type)
-        self.add_response('Data', courses)
+        self.add_response('Data', {"typeCourses":courses})
