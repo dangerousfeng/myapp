@@ -106,7 +106,8 @@ async def insert_one_comment(course_id,user_id,content):
 async def zan_add(comment_id):
     comment = await manager.get(Comment,comment_id=comment_id)
     comment.zan_num = comment.zan_num + 1
-    await comment.save()
+    await manager.update(comment)
+
 
 
 async def pull_course_comments(course_id):

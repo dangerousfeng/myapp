@@ -7,7 +7,7 @@ Module Description:
 """
 from app.action.action_base import ActionBase
 from app.componet.user_component import get_user_base_info,get_user_data_by_user_id
-
+from db.mysql_manager import manager
 
 class Action102(ActionBase):
     """
@@ -29,10 +29,11 @@ class Action102(ActionBase):
         user_base.phone = self.request_data.get('phone')
         user_base.email = self.request_data.get('email')
         user_base.password = self.request_data.get('password')
-        await user_base.save()
+        await manager.update(user_base)
 
         nickname = self.request_data.get('nickName',None)
         if nickname:
             user_data = await get_user_data_by_user_id(user_id)
             user_data.nickname = nickname
-            await user_data.save()
+            await manager.update(user_data)
+        self.add_response('Data', {"success":1})
